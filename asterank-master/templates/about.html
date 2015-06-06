@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+<script>
+function email() {
+  return String.fromCharCode(97) + 'sterank' + '@i' + String.fromCharCode(97) + 'nww.com';
+}
+</script>
+<div class="row-fluid basic-content">
+<h1>About</h1>
+<p>This database is created and maintained by <a href="http://ianww.com">Ian Webster</a>. Asterank was acquired by <a href="http://www.planetaryresources.com/" target="_blank">Planetary Resources</a> in May 2013. The code is available <a href="http://github.com/typpo/asterank">on github</a>.</p>
+<p>
+Feedback and questions are always appreciated.  Please email <script>document.write('<a href="mailto:' + email() + '">' + email() + '</a>');</script> or <a href="#" onClick="$('#contact_form').show();return false;">use this form</a>.
+
+<script>
+document.write("<div id=\"contact_form\" class=\"offset1\" style=\"display:none;\">\r\n<form method=\"POST\">\r\n<label>Your email:<br><input type=\"text\" name=\"email\"\/><\/label>\r\nFeedback<br><textarea style=\"width:45%;min-width:300px\" name=\"feedback\"><\/textarea>\r\n<br>\r\n<input type=\"submit\"\/>\r\n<\/form>\r\n<\/div>");
+</script>
+
+</p>
+<div class="row-fluid">
+  <h3>Accuracy</h3>
+  <p>Scientists know very little about the composition of asteroids. Most data used in our calculations come from the JPL's <a href="http://ssd.jpl.nasa.gov/sbdb.cgi">Small Body Database</a> and the <a href="http://minorplanetcenter.org/iau/mpc.html">Minor Planet Center</a>. The overwhelming majority of asteroids have no spectral classification and are missing other important data attributes. Without full information it is impossible to fully estimate the true value of an asteroid or the cost of mining it.</p>
+
+  <p>Asterank applies accurate, up-to-date information from world markets and scientific papers.  To ensure realistic estimates, data from meteorities on Earth and known reference asteroids heavily influence our calculations.</p>
+
+  <p>
+  As validation, our accessibility scores agree with numbers produced by a 2012 report on <a href="http://www.kiss.caltech.edu/study/asteroid/asteroid_final_report.pdf">asteroid retrieval feasibility</a> by Caltech's Keck Institute for Space Studies.
+  </p>
+</div>
+<h3>Overview of estimates</h3>
+<p>
+<strong>Value</strong> estimates are based on the mass of a given asteroid and its spectral type.  Asteroid spectra is used to infer composition, which, in conjunction with current market prices, determine potential value.
+</p>
+<p>
+<strong>Accessibility</strong> estimates are based primarily on delta-v, but it also incorporate orbital characteristics such as perihelion, aphelion, eccentricity, and period.  The formula is biased toward low delta-v with orbits that maintain a generally consistent distance from the sun (ie., no objects that swing far into the belt).
+</p>
+<p>
+<strong>Profit</strong> and ROI calculations are a combination of accessibility and value.  The formula strikes a balance between high value and high distance and energy expenditure.  Mining costs are factored in as a flat percentage of potential value.
+</p>
+<div>
+<h3>Research & Sources</h3>
+<p>A number of references, including:</p>
+<ul>
+  <li><a href="http://ssd.jpl.nasa.gov/sbdb.cgi#top">JPL's Small Body Database</a></li>
+  <li><a href="http://neo.jpl.nasa.gov/ca/">JPL Close Approaches</a></li>
+  <li><a href="http://www.minorplanetcenter.net/iau/lists/Dangerous.html">Minor Planet Center</a></li>
+  <li><a href="http://smass.mit.edu/catalog.php">MIT SMASS Survey</a></li>
+  <li><a href="http://echo.jpl.nasa.gov/~lance/delta_v/delta_v.rendezvous.html">Lance Benner's delta-v calculations</a></li>
+  <li><a href="http://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CD0QFjAB&amp;url=http%3A%2F%2Fwww.nhm.ac.uk%2Fresearch-curation%2Fresearch%2Fprojects%2Fmetcat%2FClass.rtf&amp;ei=H0ejT6CLPIKpiQKh3dHdAw&amp;usg=AFQjCNExa9jhGl5eJqlWUfC0s9a9TkvJYw&amp;sig2=OGUk3xV2184-NwNIF7k38w">Classified List of Meteorites</a></li>
+  <li><a href="http://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CCoQFjAA&amp;url=http%3A%2F%2Fwww-pao.ksc.nasa.gov%2Fkscpao%2Fnasafact%2Fps%2FSSP.ps&amp;ei=HUWjT8DaH43SiALzwbHwAw&amp;usg=AFQjCNEMiqog8TpHYyUiZLPZvtLpZUmCuA&amp;sig2=weEJFTyVMUnJ3_S_y7B1Wg">NASA LVDC Fact Sheet</a></li>
+  <li><a href="http://www.lme.com/">The London Metal Exchange</a></li>
+  <li><a href="http://www.outofthecradle.net/WordPress/wp-content/uploads/srn_v3n12.pdf">Asteroids: Sources of Precious Metals</a></li>
+  <li><a href="http://www.nss.org/settlement/asteroids/key.html">Asteroid Mining: Key to the Space Economy</a></li>
+</ul>
+<p>A number of papers, books, and presentations on this subject, including:</p>
+<ul>
+  <li><a href="http://adsabs.harvard.edu/abs/2012arXiv1203.4336C">Density of Asteroids</a></li>
+  <li><a href="http://www.lpi.usra.edu/books/AsteroidsIII/pdf/3022.pdf">Asteroid Density, Porosity, and Structure</a></li>
+  <li><a href="http://www.lpi.usra.edu/books/AsteroidsIII/pdf/3008.pdf">Asteroid Masses and Densities</a></li>
+  <li><a href="http://www.kiss.caltech.edu/study/asteroid/asteroid_final_report.pdf">Asteroid Retrieval Feasibility Study</a>
+  <li><a href="http://www.uapress.arizona.edu/onlinebks/ResourcesNearEarthSpace/resources21.pdf">Volatile Products from Carbonaceous Asteroids</a></li>
+  <li><a href="http://www.nss.org/settlement/asteroids/RoleOfNearEarthAsteroidsInLongTermPlatinumSupply.pdf">The Role of Near-Earth Asteroids in Long-Term Platinum Supply</a></li>
+  <li><a href="http://2004.isdc.nss.org/settlement/asteroids/NearEarthAsteroidMining(Ross2001).pdf">Near-Earth Asteroid Mining</a></li>
+  <li><a href="http://www.uapress.arizona.edu/onlinebks/ResourcesNearEarthSpace/resources19.pdf">Review of Asteroid Compositions</a></li>
+  <li><a href="http://adsabs.harvard.edu/abs/1992Metic..27Q.207B">The Reflectance Spectrum of Troilite and the T-Type Asteroids</a></li>
+  <li><a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1945-5100.2008.tb00671.x/abstract">A database of chondrite analyses</a></li>
+  <li><a href="http://space.alglobus.net/presentations/ISUasteroidMining/ISU2010AsteroidMining.pdf">Asteroid Mining</a></li>
+  <li><a href="http://www.amazon.com/Mining-The-Sky-Asteroids-Planets/dp/0201328194">Mining the Sky</a></li>
+</ul>
+
+</div>
+{% endblock %}

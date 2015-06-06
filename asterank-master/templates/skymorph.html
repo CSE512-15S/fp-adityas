@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block title %}NASA SkyMorph API - Asterank{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+<script>
+function email() {
+  return 'i' + String.fromCharCode(97) + 'n.webster+asterank' + '@gm' + String.fromCharCode(97) + 'il.com';
+}
+</script>
+<div class="row-fluid basic-content">
+<h1>SkyMorph/NEAT API</h1>
+
+<h3>Overview</h3>
+<p>
+This API wraps NASA's <a href="http://skyview.gsfc.nasa.gov/skymorph/skymorph.html">SkyMorph</a> archive in a RESTful JSON interface.  Currently, it provides observation and image data from the NEAT survey.
+</p>
+<p>
+Sample images:
+</p>
+<p>
+<a href="http://i.imgur.com/zNanHUW.gif" target="_blank"><img src="http://i.imgur.com/zNanHUW.gif" style="width:200px"/></a>
+<a href="http://i.imgur.com/WdDesfQ.gif" target="_blank"><img src="http://i.imgur.com/WdDesfQ.gif" style="width:200px"/></a>
+<a href="http://i.imgur.com/6Ywnv4W.gif" target="_blank"><img src="http://i.imgur.com/6Ywnv4W.gif" style="width:200px"/></a>
+</p>
+<h3>Search Queries</h3>
+
+<p>
+Query for a specific target:
+</p>
+
+<p>
+<div>
+<code>
+  http://asterank.com/api/skymorph/search?&lt;params&gt;
+</code>
+</div>
+</p>
+
+<table class="table table-bordered table-condensed" style="width:400px">
+<tr>
+<td width="80">target</td>
+<td>Target object (lookup in MPC).</td>
+</tr>
+</table>
+
+<p>
+Query based on orbital elements:
+</p>
+
+<p>
+<div>
+<code>
+  http://asterank.com/api/skymorph/search_orbit?&lt;params&gt;
+</code>
+</div>
+</p>
+
+<table class="table table-bordered table-condensed" style="width:400px">
+<tr>
+<td>epoch</td>
+<td>Epoch ([M]JD or ISO)</td>
+</tr>
+<tr>
+<td>ecc</td>
+<td>eccentricity</td>
+</tr>
+<tr>
+<td>per</td>
+<td>Perihelion distance (AU)</td>
+</tr>
+<tr>
+<td>per_date</td>
+<td>Perihelion date ([M]JD or ISO)</td>
+</tr>
+<tr>
+<td>om</td>
+<td>Longitude of ascending node (deg)</td>
+</tr>
+<tr>
+<td>w</td>
+<td>Argument of perihelion (deg)</td>
+</tr>
+<tr>
+<td>i</td>
+<td>Inclination (deg)</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Absolute magnitude</td>
+</tr>
+</table>
+
+<p>
+Query based on position and time (+/- 1 day):
+</p>
+
+<p>
+<div>
+<code>
+  http://asterank.com/api/skymorph/search_position?&lt;params&gt;
+</code>
+</div>
+</p>
+
+<table class="table table-bordered table-condensed" style="width:400px">
+<tr>
+<td>ra</td>
+<td>Right ascension (HMS)</td>
+</tr>
+<tr>
+<td>Dec</td>
+<td>Declination (DMS)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>Date and time (UTC)</td>
+</tr>
+<tr>
+<td>per_date</td>
+<td>Perihelion date ([M]JD or ISO)</td>
+</tr>
+<tr>
+<td>om</td>
+<td>Longitude of ascending node (deg)</td>
+</tr>
+<tr>
+<td>w</td>
+<td>Argument of perihelion (deg)</td>
+</tr>
+<tr>
+<td>i</td>
+<td>Inclination (deg)</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Absolute magnitude</td>
+</tr>
+</table>
+
+<p>
+Target/orbital elements search response:
+</p>
+
+<table class="table table-bordered table-condensed" style="width:400px">
+<tr>
+<td>obs_id</td>
+<td>Observation id</td>
+</tr>
+<tr>
+<td>time</td>
+<td>Time in UTC (ISO)</td>
+</tr>
+<tr>
+<td>predicted_ra</td>
+<td>Predicted object position RA (HMS)</td>
+</tr>
+<tr>
+<td>predicted_dec</td>
+<td>Predicted object position dec (DMS)</td>
+</tr>
+<tr>
+<td>center_ra</td>
+<td>Observation center RA (HMS)</td>
+</tr>
+<tr>
+<td>center_dec</td>
+<td>Observation center dec (DMS)</td>
+</tr>
+<tr>
+<td>mag</td>
+<td>Absolute magnitude</td>
+</tr>
+<tr>
+<td>veloc_we</td>
+<td>Velocity west-east ("/hour)</td>
+</tr>
+<tr>
+<td>veloc_sn</td>
+<td>Velocity south-north ("/hour)</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Offset (')</td>
+</tr>
+<tr>
+<td>pos_err_major</td>
+<td>Position error major (" or 'n.a.')</td>
+</tr>
+<tr>
+<td>pos_err_minor</td>
+<td>Position error minor (" or 'n.a.')</td>
+</tr>
+<tr>
+<td>pos_err_ang</td>
+<td>Position error angle</td>
+</tr>
+<tr>
+<td>pixel_loc_x</td>
+<td>Pixel X location</td>
+</tr>
+<tr>
+<td>pixel_loc_y</td>
+<td>Pixel Y location</td>
+</tr>
+<tr>
+<td>key</td>
+<td>Encoded string for requesting observation imagery</td>
+</tr>
+</table>
+
+<p>Position query search response:</p>
+
+<table class="table table-bordered table-condensed" style="width:400px">
+<tr>
+<td>obs_id</td>
+<td>Observation id</td>
+</tr>
+<tr>
+<td>time</td>
+<td>Time in UTC (ISO)</td>
+</tr>
+<tr>
+<td>ra</td>
+<td>Right ascension (HMS)</td>
+</tr>
+<tr>
+<td>dec</td>
+<td>Declination (DMS)</td>
+</tr>
+<tr>
+<td>exposure</td>
+<td>Exposure time (min).</td>
+</tr>
+</table>
+
+<h3>Image Queries</h3>
+
+To get the image corresponding to an observation returned by a search query, use the <code>key</code> parameter of the observation.
+
+<p>
+<div>
+<code>
+  http://asterank.com/api/skymorph/image?key=&lt;key&gt;
+</code>
+</div>
+</p>
+<h3>Sample Usage</h3>
+<p>
+{% raw %}
+This request searches for observations of MPC object J99TS7A:
+
+<p><a href='/api/skymorph/search?target=J99TS7A'>/api/skymorph/search?target=J99TS7A</a></p>
+
+{% endraw %}
+</p>
+<p>
+Response:
+<div>
+  <pre style="background-color: #ccc; width: 500px">
+{
+  "results": [
+    {
+      "pos_err_major": "n.a.",
+      "triplet": "y",
+      "mag": 20.7,
+      "veloc_sn": -11.08,
+      "obs_id": "001204124410",
+      "center_dec": "+04 04 21.4",
+      "veloc_we": -4.28,
+      "predicted_dec": "+04 38 24.1",
+      "center_ra": "08 33 21.03",
+      "predicted_ra": "08 36 15.06",
+      "pos_err_minor": "n.a.",
+      "key": "|001204124410|51882.530787037|129.062741402712|4.64001695570385|128.337645|4.0726|20.70|-4.28|-11.08|n.a.|n.a.|n.a.|71.9154214757038|547.287989060186|y|",
+      "offset": 55.14,
+      "pos_err_ang": "n.a.",
+      "pixel_loc_y": 547.29,
+      "time": "2000-12-04 12:44:20",
+      "pixel_loc_x": 71.92
+    },
+    {
+      "pos_err_major": "n.a.",
+      "triplet": "y",
+      "mag": 20.69,
+      "veloc_sn": -11.07,
+      "obs_id": "001204131418",
+      "center_dec": "+04 04 38.1",
+      "veloc_we": -4.3,
+      "predicted_dec": "+04 38 18.5",
+      "center_ra": "08 33 20.10",
+      "predicted_ra": "08 36 14.91",
+      "pos_err_minor": "n.a.",
+      "key": "|001204131418|51882.551712963|129.062129001731|4.63846213373038|128.33376|4.07724|20.69|-4.30|-11.07|n.a.|n.a.|n.a.|62.8970527907925|563.965686638963|y|",
+      "offset": 55.07,
+      "pos_err_ang": "n.a.",
+      "pixel_loc_y": 563.97,
+      "time": "2000-12-04 13:14:28",
+      "pixel_loc_x": 62.9
+    }, ...
+  </pre>
+</div>
+</p>
+<p>
+To retrieve imagery for an observation, use the key:
+</p>
+<p><a href='/api/skymorph/image?key=|001204124410|51882.530787037|129.062741402712|4.64001695570385|128.337645|4.0726|20.70|-4.28|-11.08|n.a.|n.a.|n.a.|71.9154214757038|547.287989060186|y|'>/api/skymorph/image?key=|001204124410 ...</a></p>
+<p>
+Response:
+</p>
+<p>
+<img src="http://i.imgur.com/E4MaI5Z.gif"/>
+</p>
+
+<h3>Image load speed</h3>
+<p>
+An uncached image can take a very long time to load, on the order of 10 seconds or more.  For faster load times (up to several seconds), use the <code>/fast_image</code> endpoint.
+</p>
+<p>
+The catch: data used to generate the image is the same, but the sharpness/contrast post-processing is done on Asterank servers rather than the NASA/JPL implementation.  In some images, it's possible to lose detail.  You should try the endpoints for yourself to determine which is suitable for yoru purposes.
+</p>
+
+<h3>Planned Improvements</h3>
+<ul>
+  <li>Make RGB triplets available</li>
+  <li>Better support for batch requests and long-running image retrieval jobs</li>
+</ul>
+</div>
+{% endblock %}

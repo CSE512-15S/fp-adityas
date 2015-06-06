@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block html_tag %}ng-app="AsterankApp"{% endblock %}
+
+{% block scripts %}
+
+{% assets filters="jsmin", output="gen/packed.js",
+"js/lib/jquery.autocomplete.js",
+"js/lib/d3.v2.js",
+"js/lib/bindonce.min.js",
+"js/main/orbit.js",
+"js/main/cache.js",
+"js/main/misc.js",
+"js/main/app.js",
+"js/lib/angular-bootstrap-modal.js",
+"js/main/controllers/asterank_3d.js",
+"js/main/controllers/asteroid_details.js",
+"js/main/controllers/asteroid_lookup.js",
+"js/main/controllers/asteroid_table.js",
+"js/main/controllers/custom_input.js",
+"js/main/controllers/intro_statement.js",
+"js/3d/lib/three.js/three.min.js",
+"js/3d/lib/three.js/Detector.js",
+"js/3d/lib/three.js/TrackballControls.js",
+"js/3d/lib/threex/THREEx.WindowResize.js",
+"js/3d/ellipse.js",
+"js/3d/ephemeris.js",
+"js/3d/util.js",
+"js/3d/main.js"
+%}
+<script type="text/javascript" src="{{ASSET_URL}}"></script>
+{% endassets %}
+
+<!-- Filepicker include -->
+<script type="text/javascript">
+(function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document);
+filepicker.setKey('AB4d4lluSMiY6E0Rn5jOgz');
+</script>
+<script>
+  mixpanel.track('home');
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div id="top-container" class="row">
+  <div id="left-side">
+      {% include "blocks/intro_statement.html" %}
+      {% include "blocks/selection_details.html" %}
+  </div>
+  <div id="right-side">
+    {% include "blocks/main_table.html" %}
+  </div>
+</div>
+<hr class="top-bottom-divider"/>
+<div id="bottom-container" class="row">
+  {% include "blocks/webgl.html" %}
+</div>
+
+{% include "blocks/shaders.html" %}
+
+{% endblock %}

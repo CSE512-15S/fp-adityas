@@ -1,0 +1,17 @@
+*.swp
+*.swo
+*.pyc
+*~
+*.log
+*.rdb
+
+venv
+build
+pip-log.txt
+npm-log.txt
+nohup.out
+.DS_Store
+.webassets-cache
+
+local_config.py
+data/pipeline/out

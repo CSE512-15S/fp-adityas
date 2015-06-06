@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://www.asterank.com/3d/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>3D Interactive Asteroid Space Visualization - Asterank</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link href="http://www.asterank.com/static/css/full3d.css" rel="stylesheet">
+
+
+    <script>
+		var camera;
+      window.passthrough_vars = {
+
+      };
+    </script><style type="text/css"></style>
+	<style type="text/css">.dg ul{list-style:none;margin:0;padding:0;width:100%;clear:both}.dg.ac{position:fixed;top:0;left:0;right:0;height:0;z-index:0}.dg:not(.ac) .main{overflow:hidden}.dg.main{-webkit-transition:opacity 0.1s linear;-o-transition:opacity 0.1s linear;-moz-transition:opacity 0.1s linear;transition:opacity 0.1s linear}.dg.main.taller-than-window{overflow-y:auto}.dg.main.taller-than-window .close-button{opacity:1;margin-top:-1px;border-top:1px solid #2c2c2c}.dg.main ul.closed .close-button{opacity:1 !important}.dg.main:hover .close-button,.dg.main .close-button.drag{opacity:1}.dg.main .close-button{-webkit-transition:opacity 0.1s linear;-o-transition:opacity 0.1s linear;-moz-transition:opacity 0.1s linear;transition:opacity 0.1s linear;border:0;position:absolute;line-height:19px;height:20px;cursor:pointer;text-align:center;background-color:#000}.dg.main .close-button:hover{background-color:#111}.dg.a{float:right;margin-right:15px;overflow-x:hidden}.dg.a.has-save ul{margin-top:27px}.dg.a.has-save ul.closed{margin-top:0}.dg.a .save-row{position:fixed;top:0;z-index:1002}.dg li{-webkit-transition:height 0.1s ease-out;-o-transition:height 0.1s ease-out;-moz-transition:height 0.1s ease-out;transition:height 0.1s ease-out}.dg li:not(.folder){cursor:auto;height:27px;line-height:27px;overflow:hidden;padding:0 4px 0 5px}.dg li.folder{padding:0;border-left:4px solid rgba(0,0,0,0)}.dg li.title{cursor:pointer;margin-left:-4px}.dg .closed li:not(.title),.dg .closed ul li,.dg .closed ul li > *{height:0;overflow:hidden;border:0}.dg .cr{clear:both;padding-left:3px;height:27px}.dg .property-name{cursor:default;float:left;clear:left;width:40%;overflow:hidden;text-overflow:ellipsis}.dg .c{float:left;width:60%}.dg .c input[type=text]{border:0;margin-top:4px;padding:3px;width:100%;float:right}.dg .has-slider input[type=text]{width:30%;margin-left:0}.dg .slider{float:left;width:66%;margin-left:-5px;margin-right:0;height:19px;margin-top:4px}.dg .slider-fg{height:100%}.dg .c input[type=checkbox]{margin-top:9px}.dg .c select{margin-top:5px}.dg .cr.function,.dg .cr.function .property-name,.dg .cr.function *,.dg .cr.boolean,.dg .cr.boolean *{cursor:pointer}.dg .selector{display:none;position:absolute;margin-left:-9px;margin-top:23px;z-index:10}.dg .c:hover .selector,.dg .selector.drag{display:block}.dg li.save-row{padding:0}.dg li.save-row .button{display:inline-block;padding:0px 6px}.dg.dialogue{background-color:#222;width:460px;padding:15px;font-size:13px;line-height:15px}#dg-new-constructor{padding:10px;color:#222;font-family:Monaco, monospace;font-size:10px;border:0;resize:none;box-shadow:inset 1px 1px 1px #888;word-wrap:break-word;margin:12px 0;display:block;width:440px;overflow-y:scroll;height:100px;position:relative}#dg-local-explain{display:none;font-size:11px;line-height:17px;border-radius:3px;background-color:#333;padding:8px;margin-top:10px}#dg-local-explain code{font-size:10px}#dat-gui-save-locally{display:none}.dg{color:#eee;font:11px 'Lucida Grande', sans-serif;text-shadow:0 -1px 0 #111}.dg.main::-webkit-scrollbar{width:5px;background:#1a1a1a}.dg.main::-webkit-scrollbar-corner{height:0;display:none}.dg.main::-webkit-scrollbar-thumb{border-radius:5px;background:#676767}.dg li:not(.folder){background:#1a1a1a;border-bottom:1px solid #2c2c2c}.dg li.save-row{line-height:25px;background:#dad5cb;border:0}.dg li.save-row select{margin-left:5px;width:108px}.dg li.save-row .button{margin-left:5px;margin-top:1px;border-radius:2px;font-size:9px;line-height:7px;padding:4px 4px 5px 4px;background:#c5bdad;color:#fff;text-shadow:0 1px 0 #b0a58f;box-shadow:0 -1px 0 #b0a58f;cursor:pointer}.dg li.save-row .button.gears{background:#c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;height:7px;width:8px}.dg li.save-row .button:hover{background-color:#bab19e;box-shadow:0 -1px 0 #b0a58f}.dg li.folder{border-bottom:0}.dg li.title{padding-left:16px;background:#000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.2)}.dg .closed li.title{background-image:url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==)}.dg .cr.boolean{border-left:3px solid #806787}.dg .cr.function{border-left:3px solid #e61d5f}.dg .cr.number{border-left:3px solid #2fa1d6}.dg .cr.number input[type=text]{color:#2fa1d6}.dg .cr.string{border-left:3px solid #1ed36f}.dg .cr.string input[type=text]{color:#1ed36f}.dg .cr.function:hover,.dg .cr.boolean:hover{background:#111}.dg .c input[type=text]{background:#303030;outline:none}.dg .c input[type=text]:hover{background:#3c3c3c}.dg .c input[type=text]:focus{background:#494949;color:#fff}.dg .c .slider{background:#303030;cursor:ew-resize}.dg .c .slider-fg{background:#2fa1d6}.dg .c .slider:hover{background:#3c3c3c}.dg .c .slider:hover .slider-fg{background:#44abda}
+</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+<body data-twttr-rendered="true" class=" hasGoogleVoiceExt">
+  <noscript>Sorry, this page requires Canvas/WebGL, so you'll need to enable JavaScript.</noscript>
+
+
+
+  <script type="x-shader/x-vertex" id="vertexshader">
+    // MIT License.
+    // Copyright Ian Webster 2012 (asterank.com)
+    // https://github.com/typpo/asterank/blob/master/LICENSE
+    #define pi 3.141592653589793238462643383279
+
+    attribute vec3 value_color;
+    varying vec3 vColor;
+
+    attribute float size;
+
+    uniform float earth_i;
+    uniform float earth_om;
+
+    uniform float jed;
+
+    attribute float a;
+    attribute float e;
+    attribute float i;
+    attribute float o;
+    attribute float P;
+    attribute float ma;
+    attribute float n;
+    attribute float w;
+    attribute float epoch;
+
+    attribute float locked;
+    attribute float is_planet;
+    varying float vLocked;
+    varying float vPlanet;
+
+    vec3 getAstroPos() {
+      float i_rad = (i) * pi/180.0;
+      float o_rad = (o) * pi/180.0; // longitude of ascending node
+      float p_rad = (w) * pi/180.0; // LONGITUDE of perihelion
+      float ma_rad = ma * pi/180.0;
+      float n_rad;
+      if (P > 0.) {
+        n_rad = 2.0 * pi / P;
+      }
+      else {
+        n_rad = n * pi/180.0; // mean motion
+      }
+
+      float d = jed - epoch;
+      float M = ma_rad + n_rad * d;
+
+      // Estimate eccentric and true anom using iterative approx
+      float E0 = M;
+      // converted do/while:
+      float E1 = M + e * sin(E0);
+      float lastdiff = abs(E1-E0);
+      E0 = E1;
+      for (int foo=0; foo < 25; foo++) {
+        E1 = M + e * sin(E0);
+        lastdiff = abs(E1-E0);
+        E0 = E1;
+        if (lastdiff > 0.0000001) {
+          break;
+        }
+      }
+      float E = E0;
+
+      float v = 2.0 * atan(sqrt((1.0+e)/(1.0-e)) * tan(E/2.0));
+
+      // radius vector, in AU
+      float r = a * (1.0 - e*e) / (1.0 + e * cos(v)) * 50.;  // 50 pixels per AU
+
+      // heliocentric coords
+      float X = r * (cos(o_rad) * cos(v + p_rad - o_rad) - sin(o_rad) * sin(v + p_rad - o_rad) * cos(i_rad));
+      float Y = r * (sin(o_rad) * cos(v + p_rad - o_rad) + cos(o_rad) * sin(v + p_rad - o_rad) * cos(i_rad));
+      float Z = r * (sin(v + p_rad - o_rad) * sin(i_rad));
+      return vec3(X, Y, Z);
+    }
+
+    void main() {
+      vColor = value_color;
+      vLocked = locked;
+      vPlanet = is_planet;
+
+      vec3 newpos = getAstroPos();
+      vec4 mvPosition = modelViewMatrix * vec4(newpos, 1.0);
+      gl_Position = projectionMatrix * mvPosition;
+      gl_PointSize = size;
+    }
+</script>
+<script type="x-shader/x-fragment" id="fragmentshader">
+    // MIT License.
+    // Copyright Ian Webster 2012 (asterank.com)
+    // https://github.com/typpo/asterank/blob/master/LICENSE
+    varying vec3 vColor;
+    varying float vLocked;
+    varying float vPlanet;
+    uniform sampler2D planet_texture;
+    uniform sampler2D small_roid_texture;
+    uniform sampler2D small_roid_circled_texture;
+
+    void main() {
+      if (vLocked < .5) {
+        if (vPlanet < .5) {
+          gl_FragColor = vec4(vColor, 1.0) * texture2D(small_roid_texture,
+            vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y));
+        }
+        else {
+          gl_FragColor = vec4(vColor, 1.0) * texture2D(planet_texture,
+            vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y));
+        }
+      }
+      else {
+        gl_FragColor = vec4(vColor, 1.0) * texture2D(small_roid_circled_texture,
+          vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y));
+      }
+    }
+</script>
+
+<script type="application/x-glsl" id="sky-vertex">
+varying vec2 vUV;
+varying float vDensity;
+varying float vDiff;
+
+void main() {
+  vUV = uv;
+  vec4 pos = vec4(position, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * pos;
+}
+</script>
+
+<script type="application/x-glsl" id="sky-density">
+uniform sampler2D texture;
+varying vec2 vUV;
+
+void main() {
+  vec4 sample = texture2D(texture, vUV);
+  gl_FragColor = vec4(sample.xyz, sample.w);
+}
+</script>
+
+  <div id="show_sidebar_container" class="sidebar">
+    <span id="show_sidebar" style="float:right;cursor:pointer;">+</span>
+    <p style="margin-top:0">
+      « <a href="http://www.asterank.com/">Asteroid data view</a>
+    </p>
+  </div>
+  <div id="sidebar" class="sidebar">
+    <span id="hide_sidebar" style="float:right;cursor:pointer;">-</span>
+    <p style="margin-top:0">
+      « <a href="http://www.asterank.com/">Asteroid data view</a>
+    </p>
+
+
+    <hr>
+    <div id="objects-of-interest-container" style="text-align: center; opacity: 0.7;">
+      <span>Significant objects<br>&amp; estimated value</span>
+      <table id="objects-of-interest">
+        <tbody><tr id="sun-selector" data-full-name="sun" style="background-color:green;">
+          <td colspan="2"><a href="http://www.asterank.com/3d/#">Sun</a> (default view)</td>
+        </tr>
+        <tr id="earth-selector" data-full-name="earth">
+          <td colspan="2"><a href="http://www.asterank.com/3d/#">Earth</a></td>
+        </tr>
+
+      <tr data-full-name="162173 (1999 JU3)"><td><a href="http://www.asterank.com/3d/#">1999 JU3</a></td><td>$95.02 B</td></tr><tr data-full-name="10302 (1989 ML)"><td><a href="http://www.asterank.com/3d/#">1989 ML</a></td><td>$13.94 B</td></tr><tr data-full-name="4660 Nereus (1982 DB)"><td><a href="http://www.asterank.com/3d/#">1982 DB</a></td><td>$4.71 B</td></tr><tr data-full-name="65803 Didymos (1996 GT)"><td><a href="http://www.asterank.com/3d/#">1996 GT</a></td><td>$84.01 B</td></tr><tr data-full-name="1943 Anteros (1973 EC)"><td><a href="http://www.asterank.com/3d/#">1973 EC</a></td><td>$5.57 T</td></tr><tr data-full-name="98943 (2001 CC21)"><td><a href="http://www.asterank.com/3d/#">2001 CC21</a></td><td>$147.04 B</td></tr><tr data-full-name="7474 (1992 TC)"><td><a href="http://www.asterank.com/3d/#">1992 TC</a></td><td>$84.01 B</td></tr><tr data-full-name="194006 (2001 SG10)"><td><a href="http://www.asterank.com/3d/#">2001 SG10</a></td><td>$3.50 B</td></tr><tr data-full-name="(2002 DO3)"><td><a href="http://www.asterank.com/3d/#">2002 DO3</a></td><td>$334.44 M</td></tr><tr data-full-name="(2000 CE59)"><td><a href="http://www.asterank.com/3d/#">2000 CE59</a></td><td>$10.65 B</td></tr><tr data-full-name="48603 (1995 BC2)"><td><a href="http://www.asterank.com/3d/#">1995 BC2</a></td><td>$145.99 B</td></tr><tr data-full-name="14402 (1991 DB)"><td><a href="http://www.asterank.com/3d/#">1991 DB</a></td><td>$168.20 B</td></tr><tr data-full-name="162567 (2000 RW37)"><td><a href="http://www.asterank.com/3d/#">2000 RW37</a></td><td>$36.12 B</td></tr><tr data-full-name="85774 (1998 UT18)"><td><a href="http://www.asterank.com/3d/#">1998 UT18</a></td><td>$95.02 B</td></tr><tr data-full-name="3288 Seleucus (1982 DV)"><td><a href="http://www.asterank.com/3d/#">1982 DV</a></td><td>$33.52 T</td></tr><tr data-full-name="152679 (1998 KU2)"><td><a href="http://www.asterank.com/3d/#">1998 KU2</a></td><td>$3.45 T</td></tr><tr data-full-name="65679 (1989 UQ)"><td><a href="http://www.asterank.com/3d/#">1989 UQ</a></td><td>$71.88 B</td></tr><tr data-full-name="25330 (1999 KV4)"><td><a href="http://www.asterank.com/3d/#">1999 KV4</a></td><td>$25.68 T</td></tr><tr data-full-name="7753 (1988 XB)"><td><a href="http://www.asterank.com/3d/#">1988 XB</a></td><td>$217.07 B</td></tr><tr data-full-name="(1997 RT)"><td><a href="http://www.asterank.com/3d/#">1997 RT</a></td><td>$174.31 B</td></tr><tr data-full-name="35396 (1997 XF11)"><td><a href="http://www.asterank.com/3d/#">1997 XF11</a></td><td>$383.99 B</td></tr><tr data-full-name="175706 (1996 FG3)"><td><a href="http://www.asterank.com/3d/#">1996 FG3</a></td><td>$286.95 B</td></tr><tr data-full-name="17511 (1992 QN)"><td><a href="http://www.asterank.com/3d/#">1992 QN</a></td><td>$291.29 B</td></tr><tr data-full-name="85990 (1999 JV6)"><td><a href="http://www.asterank.com/3d/#">1999 JV6</a></td><td>$5.30 B</td></tr><tr data-full-name="(2001 TY44)"><td><a href="http://www.asterank.com/3d/#">2001 TY44</a></td><td>$3.50 B</td></tr></tbody></table>
+
+    </div>
+  </div>
+	<!-- three.js container -->
+  <div id="container"></div>
+	<!-- info on screen display -->
+  <div id="loading" style="display: none;">
+    <!--<img src="/images/loader.gif"/> Loading <span id="loading-text"></span>...-->
+    <img src="./index_files/loader.gif"> Loading asteroids from database...
+  </div>
+  <div id="not-supported" style="display:none;">
+    <p>
+    <strong>Sorry, your browser or graphics card doesn't support webgl.  Most features of the simulation will not be available.</strong>
+    </p>
+    <p>
+    You may be able to see the simulation if you..
+    </p>
+    <h2><a href="http://google.com/chrome">Get Chrome</a><br>or<br><a href="http://getfirefox.com/">Get Firefox</a></h2>
+    <p>
+    <input type="submit" onclick="window.location=&#39;/3d/notsupported.html&#39;;" value="See video preview (recommended)"><br>
+    <input type="submit" onclick="$(&#39;#not-supported&#39;).hide();return false;" value="Ignore for now">
+    </p>
+  </div>
+	<div id="info">
+    <div id="caption-container">
+      <div id="main-caption" class="top">
+      </div>
+      <div id="other-caption" class="top">
+      </div>
+    </div>
+		<div class="bottom" id="inlineDoc">
+      <span style="font-size:12px;color:#fff">
+      <strong>Rotate</strong>: left click + drag; <strong>Pan</strong>: right click + drag
+      <br>
+      <strong>Zoom</strong>: scroll/middle click + drag; <strong>Fullscreen</strong>: press f
+      <br>
+      Location of all objects shown is scientifically accurate.</span>
+		</div>
+	</div>
+  <script src="./index_files/jquery.min.js"></script>
+  <!--
+  <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r58/three.min.js"></script>
+  -->
+
+
+<script type="text/javascript" src="./index_files/three.min.js"></script>
+
+<script type="text/javascript" src="./index_files/Detector.js"></script>
+
+<script type="text/javascript" src="./index_files/TrackballControls.js"></script>
+
+<script type="text/javascript" src="./index_files/THREEx.WindowResize.js"></script>
+
+<script type="text/javascript" src="./index_files/THREEx.FullScreen.js"></script>
+
+<script type="text/javascript" src="./index_files/dat.gui.js"></script>
+
+<script type="text/javascript" src="./index_files/ellipse.js"></script>
+
+<script type="text/javascript" src="./index_files/ephemeris.js"></script>
+
+<script type="text/javascript" src="./index_files/util.js"></script>
+
+<script src="./index_files/OculusRiftEffect.js"></script>
+
+<script type="text/javascript" src="./index_files/main.js"></script>
+
+<script type="text/javascript" src="./index_files/full3d_loader.js"></script>
+
+
+
+
+
+
+<!--<iframe name="oauth2relay595063700" id="oauth2relay595063700" src="./index_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div class="dg ac"><div class="dg main a" style="width: 245px;"><div style="width: 6px; margin-left: -3px; height: 224px; cursor: ew-resize; position: absolute;"></div><ul style="height: auto;"><li class="cr function"><div><span class="property-name">Cost effective</span><div class="c"><div class="button"></div></div></div></li><li class="cr function"><div><span class="property-name">Most valuable</span><div class="c"><div class="button"></div></div></div></li><li class="cr function"><div><span class="property-name">Most accessible</span><div class="c"><div class="button"></div></div></div></li><li class="cr function"><div><span class="property-name">Smallest</span><div class="c"><div class="button"></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">Speed</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 25%;"></div></div></div></div></li><li class="cr boolean"><div><span class="property-name">Planet orbits</span><div class="c"><input type="checkbox" checked="checked"></div></div></li><li class="cr boolean"><div><span class="property-name">Milky Way</span><div class="c"><input type="checkbox" checked="checked"></div></div></li><li class="cr string"><div><span class="property-name">Display date</span><div class="c"><input type="text"></div></div></li></ul><div class="close-button" style="width: 245px;">Close Controls</div></div></div></body></html>-->

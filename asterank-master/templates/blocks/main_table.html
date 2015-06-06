@@ -1,0 +1,73 @@
+<div ng-controller="AsteroidTableCtrl" ng-init="Init()" ng-cloak>
+  <div class="form-horizontal" style="height: 30px">
+    <div style="float: left; display: block; margin-right: 15px;">
+      Query:
+      <select ng-options="x.text for x in sort_orders" ng-model="sort_by" ng-change="UpdateRankings()" style="height:24px;font-size:12px;width:150px;">
+      </select>
+    </div>
+    <div ng-controller="AsteroidLookupCtrl" ng-init="Init()" style="float: left; width: 280px;">
+      Lookup:
+      <span id="autocomplete-container" autocomplete-input="{{lookup_query}}" autocomplete=""></span>
+    </div>
+    <!-- CUSTOM INPUT -->
+    {% include "blocks/custom_input.html" %}
+    <!-- MAIN TABLE -->
+    <div style="float: right;">
+      Show
+      <select ng-options="x for x in limit_options" ng-model="limit" ng-change="UpdateRankings()" style="height:24px; width:70px; font-size:12px">
+      </select>
+    </div>
+  </div>
+  <div id="results-table-container">
+    <table id="results-table" class="table table-striped-dark table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            <span>a (AU) <i bs-tooltip data-toggle="tooltip" title="Semi-major Axis" class="icon-info-sign icon-white"></i></span>
+          </th>
+          <th>
+            <span>e <i bs-tooltip title="Eccentricity" class="icon-info-sign icon-white"></i></span>
+          </th>
+          <th>
+            Value ($)
+          </th>
+          <th>
+            Est. Profit ($)
+          </th>
+          <th>
+            &Delta;v (km/s)
+          </th>
+          <th ng-show="sort_by.search_value == 'smallest'">
+            Diameter (km)
+          </th>
+          <th>
+            Class
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr bindonce ng-repeat="asteroid in rankings" ng-click="AsteroidClick(asteroid)" ng-class="{info: selected.full_name == asteroid.full_name}">
+          <td bo-text="asteroid.name | ifempty:asteroid.prov_des"></td>
+          <td bo-text="asteroid.spec"></td>
+          <td bo-text="asteroid.a | number:3"></td>
+          <td bo-text="asteroid.e | number:3"></td>
+          <td bo-text="asteroid.price | fuzzynum"></td>
+          <td bo-text="asteroid.profit | fuzzynum"></td>
+          <td bo-text="asteroid.dv | number:3"></td>
+          <td bo-text="asteroid.diameter" ng-show="sort_by.search_value == 'smallest'"></td>
+          <td><span bo-text="asteroid.class"></span> <span bo-show="asteroid.pha == 'Y'">(PHA)</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="results-table-loader" class="loader">
+      Loading....
+    </div>
+  </div>
+
+</div>

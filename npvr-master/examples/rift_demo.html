@@ -258,6 +258,36 @@
 				}
 			}
 
+			function quaternionToEuler(q1) {
+
+					var euler = new THREE.Vector3( 0, 0, 0 );
+
+			    var sqw = q1.w*q1.w;
+			    var sqx = q1.x*q1.x;
+			    var sqy = q1.y*q1.y;
+			    var sqz = q1.z*q1.z;
+					var unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+
+					var test = q1.x*q1.y + q1.z*q1.w;
+					if (test > 0.499*unit) { // singularity at north pole
+						euler.x = 2 * Math.atan2(q1.x,q1.w);
+						euler.y = Math.PI/2;
+						euler.z = 0;
+						return;
+					}
+					if (test < -0.499*unit) { // singularity at south pole
+						euler.x = -2 * Math.atan2(q1.x,q1.w);
+						euler.y = -Math.PI/2;
+						euler.z = 0;
+						return;
+					}
+				  euler.x = Math.atan2(2*q1.y*q1.w-2*q1.x*q1.z , sqx - sqy - sqz + sqw);
+					euler.y = Math.asin(2*test/unit);
+					euler.z = Math.atan2(2*q1.x*q1.w-2*q1.y*q1.z , -sqx + sqy - sqz + sqw);
+
+					return euler;
+			}
+
 			var vrstate = vr.createState();
 			function animate() {
 				requestAnimationFrame( animate );
@@ -278,15 +308,23 @@
 				// Poll VR, if it's ready.
                 if (vr.isReady) {
                     vr.poll(vrstate);
-                    
+
                     camera.position.x = vrstate.oculus.position[0] * 100;
                     camera.position.y = vrstate.oculus.position[1] * 100 +50;
                     camera.position.z = vrstate.oculus.position[2] * 100;
 
-                    camera.rotation.w = vrstate.oculus.rotation[3] * Math.PI;                   
+                    camera.rotation.w = vrstate.oculus.rotation[3] * Math.PI;
                     camera.rotation.y = vrstate.oculus.rotation[1] * Math.PI;
                     camera.rotation.z = vrstate.oculus.rotation[2] * Math.PI;
-                    camera.rotation.x = vrstate.oculus.rotation[0] * Math.PI;                                                           
+                    camera.rotation.x = vrstate.oculus.rotation[0] * Math.PI;
+
+										//console.log(quaternionToEuler(camera.rotation));
+
+										var eulers = quaternionToEuler(camera.rotation);
+
+										camera.rotation.x = eulers.z;
+										camera.rotation.y = eulers.x;
+										camera.rotation.z = eulers.y;
                 }
 				controls.update( Date.now() - time, vr.isReady ? vrstate : null );
 
