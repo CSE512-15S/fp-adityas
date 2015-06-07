@@ -28,7 +28,7 @@ function Asterank3D(opts) {
             window.oRequestAnimationFrame      ||
             window.msRequestAnimationFrame     ||
             function( callback ){
-              //window.setTimeout(callback, 1000 / 60);
+              window.setTimeout(callback, 1000 / 75);
             };
   })();
 
@@ -694,11 +694,16 @@ function Asterank3D(opts) {
 
         //console.log(quaternionToEuler(camera.rotation));
 
-        var eulers = quaternionToEuler(q1);
+        camera.rotation.setFromQuaternion(q1, "XYZ");
 
-        camera.rotation.x = eulers.z - Math.PI /2.0;
-        camera.rotation.y = eulers.x;
-        camera.rotation.z = eulers.y;
+        // var eulers = quaternionToEuler(q1);
+        //
+        //
+        // camera.rotation.y = eulers.x;
+        // camera.rotation.z = eulers.y;
+        camera.rotation.x -= Math.PI /2.0;
+
+        //console.log(camera.rotation);
     }
 
     // update camera controls
