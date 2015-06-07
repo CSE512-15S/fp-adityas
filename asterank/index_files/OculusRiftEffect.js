@@ -10,7 +10,7 @@
 
 THREE.OculusRiftEffect = function ( renderer, options ) {
 	// worldFactor indicates how many units is 1 meter
-	var worldFactor = 400.0;
+	var worldFactor = 6.0;
 
 	// Specific HMD parameters
 	var HMD = (options && options.HMD) ? options.HMD: {
@@ -153,6 +153,21 @@ THREE.OculusRiftEffect = function ( renderer, options ) {
 
 		renderer.setSize( width, height );
 	};
+
+	this.keyPressed = function(event)
+	{
+		switch ( event.keyCode ) {
+			case 79: /*O*/ worldFactor-=10; console.log(worldFactor); break;
+			case 80: /*P*/ worldFactor+=10; console.log(worldFactor); break;
+			case 75: /*K*/ worldFactor-=1; console.log(worldFactor); break;
+			case 76: /*L*/ worldFactor+=1; console.log(worldFactor); break;
+			// case 78: /*N*/ effect.fov -= 1; document.getElementById( 'fovVal' ).innerHTML = effect.fov; break;
+			// case 77: /*M*/ effect.fov += 1; document.getElementById( 'fovVal' ).innerHTML = effect.fov; break;
+
+		}
+
+		effect.setHMD(HMD);
+	}
 
 	this.render = function ( scene, camera ) {
 		var cc = renderer.getClearColor().clone();

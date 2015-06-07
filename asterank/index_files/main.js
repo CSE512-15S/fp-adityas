@@ -1,4 +1,7 @@
-;function Asterank3D(opts) {
+var effect; //oculus rift effect
+var vrstate; //oculus rift state
+
+function Asterank3D(opts) {
   'use strict';
 
   var me = this;
@@ -25,7 +28,7 @@
             window.oRequestAnimationFrame      ||
             window.msRequestAnimationFrame     ||
             function( callback ){
-              window.setTimeout(callback, 1000 / 60);
+              //window.setTimeout(callback, 1000 / 60);
             };
   })();
 
@@ -37,7 +40,7 @@
 
   /** Other variables **/
   var stats, scene, renderer, composer
-    , effect, cameraControls
+    , cameraControls, q1
     , pi = Math.PI
     , using_webgl = false
     , object_movement_on = true
@@ -202,6 +205,9 @@
 
     opts.container.appendChild(renderer.domElement);
 
+    document.addEventListener( 'keydown', effect.keyPressed, false );
+
+    vrstate = vr.createState();
 
     THREEx.WindowResize(renderer, camera, opts.container);    // handle window resize
     // Fullscreen api
@@ -212,22 +218,27 @@
     camera.lookAt(new THREE.Vector3(0,0,0));
     scene.add(camera);
 
-    cameraControls = new THREE.TrackballControls(camera, opts.container);
-    cameraControls.staticMoving = true;
-    cameraControls.panSpeed = 2;
-    cameraControls.zoomSpeed = 3;
-    cameraControls.rotateSpeed = 3;
-    cameraControls.maxDistance = 1100;
-    cameraControls.dynamicDampingFactor = 0.5;
+    // cameraControls = new THREE.TrackballControls(camera, opts.container);
+    // cameraControls.staticMoving = true;
+    // cameraControls.panSpeed = 2;
+    // cameraControls.zoomSpeed = 3;
+    // cameraControls.rotateSpeed = 3;
+    // cameraControls.maxDistance = 1100;
+    // cameraControls.dynamicDampingFactor = 0.5;
+
+    cameraControls = new THREE.OculusRiftControls(camera)
+
     window.cc = cameraControls;
 
     // This is stupid but it's how I set up the initial rotation
-    cameraControls.forceRotate(
-        new THREE.Vector3(0.09133858267716535, 0.4658716047427351, 0.1826620371691377),
-        new THREE.Vector3(-0.12932885444884135, 0.35337196181704117,  0.023557202790282953));
-    cameraControls.forceRotate(
-        new THREE.Vector3(0.5557858773636077, 0.7288978222072244, 0.17927802044881952),
-        new THREE.Vector3(-0.0656536826099882, 0.5746939531732201, 0.7470641189675084));
+    // cameraControls.forceRotate(
+    //     new THREE.Vector3(0.09133858267716535, 0.4658716047427351, 0.1826620371691377),
+    //     new THREE.Vector3(-0.12932885444884135, 0.35337196181704117,  0.023557202790282953));
+    // cameraControls.forceRotate(
+    //     new THREE.Vector3(0.5557858773636077, 0.7288978222072244, 0.17927802044881952),
+    //     new THREE.Vector3(-0.0656536826099882, 0.5746939531732201, 0.7470641189675084));
+
+    q1 = new THREE.Quaternion();
 
 
     // Rendering solar system
@@ -636,8 +647,59 @@
     requestAnimFrame(animate);
   }
 
+  function quaternionToEuler(q1) {
+
+      var euler = new THREE.Vector3( 0, 0, 0 );
+
+      var sqw = q1.w*q1.w;
+      var sqx = q1.x*q1.x;
+      var sqy = q1.y*q1.y;
+      var sqz = q1.z*q1.z;
+      var unit = 1; // if normalised is one, otherwise is correction factor
+
+      var test = q1.x*q1.y + q1.z*q1.w;
+      if (test > 0.499*unit) { // singularity at north pole
+        euler.x = 2 * Math.atan2(q1.x,q1.w);
+        euler.y = Math.PI/2;
+        euler.z = 0;
+        return;
+      }
+      if (test < -0.499*unit) { // singularity at south pole
+        euler.x = -2 * Math.atan2(q1.x,q1.w);
+        euler.y = -Math.PI/2;
+        euler.z = 0;
+        return;
+      }
+      euler.x = Math.atan2(2*q1.y*q1.w-2*q1.x*q1.z , sqx - sqy - sqz + sqw);
+      euler.y = Math.asin(2*test/unit);
+      euler.z = Math.atan2(2*q1.x*q1.w-2*q1.y*q1.z , -sqx + sqy - sqz + sqw);
+
+      return euler;
+  }
+
   function render(force) {
     // render the scene at this timeframe
+
+    if (vr.isReady) {
+        vr.poll(vrstate);
+
+        camera.position.x = vrstate.oculus.position[0] * 50;
+        camera.position.y = vrstate.oculus.position[2] * 50 + 200;
+        camera.position.z = vrstate.oculus.position[1] * -50;
+
+        q1.w = vrstate.oculus.rotation[3];/// * Math.PI;
+        q1.y = vrstate.oculus.rotation[1];// * Math.PI;
+        q1.z = vrstate.oculus.rotation[2];// * Math.PI;
+        q1.x = vrstate.oculus.rotation[0];// * Math.PI;
+
+        //console.log(quaternionToEuler(camera.rotation));
+
+        var eulers = quaternionToEuler(q1);
+
+        camera.rotation.x = eulers.z - Math.PI /2.0;
+        camera.rotation.y = eulers.x;
+        camera.rotation.z = eulers.y;
+    }
 
     // update camera controls
     cameraControls.update();
