@@ -10,7 +10,7 @@
 
 THREE.OculusRiftEffect = function ( renderer, options ) {
 	// worldFactor indicates how many units is 1 meter
-	var worldFactor = 6.0;
+	var worldFactor = 1.0;
 
 	// Specific HMD parameters
 	var HMD = (options && options.HMD) ? options.HMD: {
