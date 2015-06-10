@@ -651,7 +651,7 @@ var q1 = new THREE.Quaternion();
         vr.poll(vrstate);
 
         camera.position.x = vrstate.oculus.position[0] * 250;
-        camera.position.y = vrstate.oculus.position[2] * 250 + 200;
+        camera.position.y = vrstate.oculus.position[2] * 250 + 100;
         camera.position.z = vrstate.oculus.position[1] * -250;
 
         q1.w = vrstate.oculus.rotation[3];/// * Math.PI;

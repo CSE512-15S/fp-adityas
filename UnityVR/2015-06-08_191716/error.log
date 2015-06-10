@@ -1,0 +1,25 @@
+Unity Player [version: Unity 4.6.3f1_4753d8b6ef2b]
+
+OculusPlugin.dll caused an Access Violation (0xc0000005)
+  in module OculusPlugin.dll at 0033:d52b383a.
+
+Error occurred at 2015-06-08_191722.
+C:\Users\Aditya\Documents\Work\Courses\512\fp\fp-adityas\UnityVR\brushing_demo.exe, run by Aditya.
+26% memory in use.
+8100 MB physical memory [5935 MB free].
+9380 MB paging file [6830 MB free].
+134217728 MB user address space [134217445 MB free].
+Read from location 00000000 caused an access violation.
+
+Context:
+RDI:    0x074b2520  RSI: 0x00000000  RAX:   0x00000000
+RBX:    0x00000000  RCX: 0x075ca770  RDX:   0x00100010
+RIP:    0xd52b383a  RBP: 0x0055e389  SegCs: 0x00000033
+EFlags: 0x00010202  RSP: 0x0055e2f0  SegSs: 0x0000002b
+R8:    0x00000000  R9: 0x00000000  R10:   0x075ca720
+R11:    0x00000000  R12: 0x00000000  R13:   0x0055e6a8
+R14:    0xd52efcb8  R15: 0x0055e648
+
+Bytes at CS:EIP:
+48 8b 00 48 89 41 10 c7 41 18 08 00 00 00 48 8d 
+== [end of error.log] ==

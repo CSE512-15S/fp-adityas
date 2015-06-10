@@ -244,5 +244,11 @@ public class plot : MonoBehaviour {
 			}
 
 		}
+
+		if (Input.GetKeyDown (KeyCode.C)) {
+			foreach (DataPoint d in pointlist) {
+					d.deselect();
+			}
+		}
 	}
 }

@@ -683,9 +683,9 @@ function Asterank3D(opts) {
     if (vr.isReady) {
         vr.poll(vrstate);
 
-        camera.position.x = vrstate.oculus.position[0] * 50;
-        camera.position.y = vrstate.oculus.position[2] * 50 + 200;
-        camera.position.z = vrstate.oculus.position[1] * -50;
+        camera.position.x = vrstate.oculus.position[0] * 100;
+        camera.position.y = vrstate.oculus.position[2] * 100 + 150;
+        camera.position.z = vrstate.oculus.position[1] * -100 - 60;
 
         q1.w = vrstate.oculus.rotation[3];/// * Math.PI;
         q1.y = vrstate.oculus.rotation[1];// * Math.PI;
