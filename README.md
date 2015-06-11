@@ -7,7 +7,7 @@ There has been a resurgence of interest in Virtual Reality (VR) with the advent 
 - Aditya Sankar (adityas@uw) - Design and development of Unity and WebGL applications
 
 ## Running Instructions
-Correctly running these visualizations requires Oculus Rift DK2 hardware and npvr plugin installed from npvr-master/bin/ ([further instructions](https://github.com/benvanik/vr.js/)). They may run without the hardware attached, but you will not be able to fully experience the virtual reality demos and there may be some unexpected behavior.
+Correctly running these visualizations requires Oculus Rift DK2 hardware and npvr plugin installed from npvr-master/bin/ ([further instructions](https://github.com/benvanik/vr.js/)). They may run without the hardware attached, but you will not be able to fully experience the virtual reality demos and there may be some unexpected behavior. Happy to organize another demo for grading purposes, if required.
 
 * Unity Demo: Download and run UnityVR/brushing_demo.exe
 * Link: [AsterankVR](http://homes.cs.washington.edu/~aditya/files/misc/fp-adityas/asterankVR)
